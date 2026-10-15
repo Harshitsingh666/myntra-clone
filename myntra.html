@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fashion Store - Myntra Style Clone (Education Only)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #282c3f; background: #fff; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ---------- NAVBAR ---------- */
+  header { position: sticky; top: 0; z-index: 10; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
+  .nav { display: flex; align-items: center; gap: 24px; padding: 12px 32px; flex-wrap: wrap; }
+  .logo { font-size: 26px; font-weight: bold; color: #ff3f6c; }
+  .menu { display: flex; gap: 22px; font-size: 14px; font-weight: bold; }
+  .menu a { padding: 8px 0; border-bottom: 3px solid transparent; cursor: pointer; }
+  .menu a:hover, .menu a.active { color: #ff3f6c; border-bottom-color: #ff3f6c; }
+  .search { flex: 1; min-width: 200px; }
+  .search input { width: 100%; padding: 10px 14px; background: #f5f5f6; border: none; border-radius: 4px; font-size: 14px; }
+  .icons { display: flex; gap: 20px; font-size: 13px; }
+  .icons div { text-align: center; cursor: pointer; }
+  .icons span.big { font-size: 20px; display: block; }
+  .badge { background: #ff3f6c; color: #fff; border-radius: 10px; padding: 1px 6px; font-size: 11px; }
+
+  /* ---------- HERO ---------- */
+  .hero { height: 300px; background: linear-gradient(120deg, #ff3f6c, #ff905a); color: #fff;
+          display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .hero h1 { font-size: 44px; }
+  .hero p { font-size: 20px; margin: 10px 0 18px; }
+  .hero button { padding: 12px 28px; border: none; border-radius: 4px; background: #fff; color: #ff3f6c;
+                 font-weight: bold; font-size: 15px; cursor: pointer; }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 30px 32px; }
+  h2 { font-size: 22px; margin-bottom: 18px; letter-spacing: 1px; }
+  .cats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; }
+  .cat { height: 120px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center;
+         align-items: center; font-weight: bold; cursor: pointer; font-size: 15px; }
+  .cat span { font-size: 36px; }
+
+  .toolbar { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+  .toolbar button { padding: 8px 16px; border: 1px solid #d4d5d9; background: #fff; border-radius: 20px; cursor: pointer; }
+  .toolbar button.active { background: #ff3f6c; color: #fff; border-color: #ff3f6c; }
+
+  /* ---------- PRODUCT GRID ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+  .card { border: 1px solid #eee; position: relative; cursor: pointer; }
+  .card:hover { box-shadow: 0 0 12px rgba(0,0,0,.15); }
+  .pic { height: 240px; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+  .info { padding: 10px 12px 14px; }
+  .brand { font-weight: bold; font-size: 15px; }
+  .name { font-size: 13px; color: #696b79; margin: 3px 0 6px; }
+  .price b { font-size: 15px; }
+  .price s { color: #94969f; font-size: 13px; margin: 0 6px; }
+  .price em { color: #ff905a; font-style: normal; font-size: 13px; }
+  .rating { position: absolute; left: 8px; bottom: 100px; background: #fff; padding: 2px 6px; font-size: 12px; font-weight: bold; }
+  .heart { position: absolute; top: 8px; right: 10px; font-size: 22px; cursor: pointer; background: #fff;
+           border-radius: 50%; width: 34px; height: 34px; text-align: center; line-height: 34px; }
+  .add { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ff3f6c; background: #fff;
+         color: #ff3f6c; font-weight: bold; cursor: pointer; border-radius: 4px; }
+  .add:hover { background: #ff3f6c; color: #fff; }
+  #empty { display: none; padding: 40px; text-align: center; color: #696b79; }
+
+  /* ---------- FOOTER ---------- */
+  footer { background: #fafbfc; padding: 30px 32px; margin-top: 30px; color: #696b79; font-size: 13px; line-height: 1.8; }
+  footer b { color: #282c3f; }
+
+  /* ---------- TOAST ---------- */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #282c3f; color: #fff;
+           padding: 10px 20px; border-radius: 4px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  #toast.show { opacity: 1; }
+
+  @media (max-width: 700px) { .menu { display: none; } .hero h1 { font-size: 30px; } }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav">
+    <a class="logo" href="#">FashionHub</a>
+    <nav class="menu">
+      <a class="active" data-cat="All">ALL</a>
+      <a data-cat="Men">MEN</a>
+      <a data-cat="Women">WOMEN</a>
+      <a data-cat="Kids">KIDS</a>
+      <a data-cat="Footwear">FOOTWEAR</a>
+      <a data-cat="Accessories">ACCESSORIES</a>
+    </nav>
+    <div class="search"><input id="search" type="text" placeholder="Search for products, brands and more"></div>
+    <div class="icons">
+      <div><span class="big">👤</span>Profile</div>
+      <div id="wishBtn"><span class="big">❤️</span>Wishlist <span class="badge" id="wishCount">0</span></div>
+      <div><span class="big">🛍️</span>Bag <span class="badge" id="cartCount">0</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>END OF REASON SALE</h1>
+  <p>Up to 60% OFF on top brands</p>
+  <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">SHOP NOW</button>
+</div>
+
+<!-- CATEGORIES -->
+<section>
+  <h2>SHOP BY CATEGORY</h2>
+  <div class="cats" id="cats"></div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2 id="title">ALL PRODUCTS</h2>
+  <div class="toolbar">
+    <button class="active" data-sort="none">Recommended</button>
+    <button data-sort="low">Price: Low to High</button>
+    <button data-sort="high">Price: High to Low</button>
+    <button data-sort="rating">Top Rated</button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div id="empty">No products found. Try a different search.</div>
+</section>
+
+<footer>
+  <b>ONLINE SHOPPING</b> &nbsp; Men · Women · Kids · Footwear · Accessories<br>
+  <b>CUSTOMER POLICIES</b> &nbsp; Contact Us · FAQ · Returns · Track Orders<br><br>
+  This is a demo clone made for educational purposes only. It is not affiliated with any real brand.
+</footer>
+
+<div id="toast"></div>
+
+<script>
+  // ---------- DATA (you can add more products here) ----------
+  const products = [
+    { id: 1,  brand: "Roadster",      name: "Casual Cotton T-Shirt",   cat: "Men",         price: 499,  old: 999,  off: 50, rating: 4.2, icon: "👕", color: "#dbeafe" },
+    { id: 2,  brand: "HRX",           name: "Slim Fit Denim Jeans",    cat: "Men",         price: 1299, old: 2599, off: 50, rating: 4.1, icon: "👖", color: "#e0e7ff" },
+    { id: 3,  brand: "Highlander",    name: "Formal Checked Shirt",    cat: "Men",         price: 799,  old: 1999, off: 60, rating: 4.3, icon: "👔", color: "#fde68a" },
+    { id: 4,  brand: "Libas",         name: "Printed Cotton Kurta",    cat: "Women",       price: 899,  old: 1799, off: 50, rating: 4.4, icon: "👗", color: "#fbcfe8" },
+    { id: 5,  brand: "Tokyo Talkies", name: "Floral Summer Dress",     cat: "Women",       price: 1099, old: 2199, off: 50, rating: 4.0, icon: "👚", color: "#fecdd3" },
+    { id: 6,  brand: "Anouk",         name: "Silk Blend Saree",        cat: "Women",       price: 1599, old: 3999, off: 60, rating: 4.5, icon: "🥻", color: "#ddd6fe" },
+    { id: 7,  brand: "Nike",          name: "Running Shoes",           cat: "Footwear",    price: 3499, old: 5999, off: 42, rating: 4.6, icon: "👟", color: "#bbf7d0" },
+    { id: 8,  brand: "Puma",          name: "Classic Sneakers",        cat: "Footwear",    price: 2799, old: 4999, off: 44, rating: 4.3, icon: "👞", color: "#fed7aa" },
+    { id: 9,  brand: "Metro",         name: "Women Block Heels",       cat: "Footwear",    price: 1899, old: 2999, off: 37, rating: 4.1, icon: "👠", color: "#fbcfe8" },
+    { id: 10, brand: "Fossil",        name: "Analog Wrist Watch",      cat: "Accessories", price: 5999, old: 9999, off: 40, rating: 4.7, icon: "⌚", color: "#e5e7eb" },
+    { id: 11, brand: "Ray-Ban",       name: "Aviator Sunglasses",      cat: "Accessories", price: 3999, old: 6499, off: 38, rating: 4.5, icon: "🕶️", color: "#fef3c7" },
+    { id: 12, brand: "Wildcraft",     name: "Casual Backpack",         cat: "Accessories", price: 1299, old: 2499, off: 48, rating: 4.2, icon: "🎒", color: "#d1fae5" },
+    { id: 13, brand: "Hopscotch",     name: "Boys Graphic T-Shirt",    cat: "Kids",        price: 399,  old: 799,  off: 50, rating: 4.0, icon: "🧒", color: "#cffafe" },
+    { id: 14, brand: "Mothercare",    name: "Girls Party Frock",       cat: "Kids",        price: 999,  old: 1999, off: 50, rating: 4.4, icon: "👧", color: "#fce7f3" },
+    { id: 15, brand: "Allen Solly",   name: "Wool Blend Sweater",      cat: "Men",         price: 1499, old: 2999, off: 50, rating: 4.2, icon: "🧥", color: "#ede9fe" },
+    { id: 16, brand: "Zivame",        name: "Handbag with Sling",      cat: "Accessories", price: 1199, old: 2399, off: 50, rating: 4.1, icon: "👜", color: "#ffe4e6" }
+  ];
+
+  // ---------- STATE ----------
+  let category = "All";
+  let sortBy = "none";
+  let searchText = "";
+  let showWishlistOnly = false;
+  let cart = [];
+  let wishlist = [];
+
+  // ---------- HELPERS ----------
+  const grid = document.getElementById("grid");
+
+  function toast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 1500);
+  }
+
+  // ---------- SHOW PRODUCTS ----------
+  function render() {
+    // 1. filter
+    let list = products.filter(p => {
+      const okCat = category === "All" || p.cat === category;
+      const okSearch = (p.brand + " " + p.name).toLowerCase().includes(searchText.toLowerCase());
+      const okWish = !showWishlistOnly || wishlist.includes(p.id);
+      return okCat && okSearch && okWish;
+    });
+
+    // 2. sort
+    if (sortBy === "low") list.sort((a, b) => a.price - b.price);
+    if (sortBy === "high") list.sort((a, b) => b.price - a.price);
+    if (sortBy === "rating") list.sort((a, b) => b.rating - a.rating);
+
+    // 3. draw cards
+    grid.innerHTML = list.map(p => `
+      <div class="card">
+        <div class="pic" style="background:${p.color}">${p.icon}</div>
+        <div class="heart" onclick="toggleWish(${p.id})">${wishlist.includes(p.id) ? "❤️" : "🤍"}</div>
+        <div class="rating">${p.rating} ⭐</div>
+        <div class="info">
+          <div class="brand">${p.brand}</div>
+          <div class="name">${p.name}</div>
+          <div class="price"><b>Rs. ${p.price}</b><s>Rs. ${p.old}</s><em>(${p.off}% OFF)</em></div>
+          <button class="add" onclick="addToCart(${p.id})">ADD TO BAG</button>
+        </div>
+      </div>
+    `).join("");
+
+    document.getElementById("empty").style.display = list.length ? "none" : "block";
+    document.getElementById("title").textContent =
+      (showWishlistOnly ? "MY WISHLIST" : category.toUpperCase() + " PRODUCTS") + " (" + list.length + ")";
+  }
+
+  // ---------- ACTIONS ----------
+  function addToCart(id) {
+    cart.push(id);
+    document.getElementById("cartCount").textContent = cart.length;
+    toast("Added to bag");
+  }
+
+  function toggleWish(id) {
+    if (wishlist.includes(id)) {
+      wishlist = wishlist.filter(x => x !== id);
+    } else {
+      wishlist.push(id);
+      toast("Added to wishlist");
+    }
+    document.getElementById("wishCount").textContent = wishlist.length;
+    render();
+  }
+
+  function setCategory(c) {
+    category = c;
+    showWishlistOnly = false;
+    document.querySelectorAll(".menu a").forEach(a => a.classList.toggle("active", a.dataset.cat === c));
+    render();
+    document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+  }
+
+  // ---------- EVENTS ----------
+  document.querySelectorAll(".menu a").forEach(a => a.onclick = () => setCategory(a.dataset.cat));
+
+  document.querySelectorAll(".toolbar button").forEach(b => {
+    b.onclick = () => {
+      sortBy = b.dataset.sort;
+      document.querySelectorAll(".toolbar button").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      render();
+    };
+  });
+
+  document.getElementById("search").oninput = e => { searchText = e.target.value; render(); };
+
+  document.getElementById("wishBtn").onclick = () => {
+    showWishlistOnly = !showWishlistOnly;
+    render();
+  };
+
+  // category tiles
+  const tiles = [
+    { name: "Men", icon: "👔", color: "#dbeafe" },
+    { name: "Women", icon: "👗", color: "#fbcfe8" },
+    { name: "Kids", icon: "🧸", color: "#cffafe" },
+    { name: "Footwear", icon: "👟", color: "#bbf7d0" },
+    { name: "Accessories", icon: "⌚", color: "#fef3c7" }
+  ];
+  document.getElementById("cats").innerHTML = tiles.map(t =>
+    `<div class="cat" style="background:${t.color}" onclick="setCategory('${t.name}')"><span>${t.icon}</span>${t.name}</div>`
+  ).join("");
+
+  render();
+</script>
+</body>
+</html>
