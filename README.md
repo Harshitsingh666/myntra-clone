@@ -1,182 +1,23 @@
-# 🛍️ Myntra Clone — Fashion Shopping Website
+# Fashion Edit — Myntra-inspired storefront
 
-A responsive, Myntra-inspired fashion shopping website built using **HTML5, CSS3, and Vanilla JavaScript**. This project recreates the basic experience of an online fashion store, including product browsing, live search, wishlist management, and a shopping bag.
+A small educational fashion storefront built with plain HTML, CSS, and JavaScript. It recreates common online-shopping patterns such as category browsing, product search, sorting, a wishlist, and a shopping bag without a framework or build step.
 
-The project is designed for learning and practicing frontend web development, UI design, and JavaScript DOM manipulation.
+> This is an independent learning project. It is not affiliated with or endorsed by Myntra. The catalog uses sample product data and remote Unsplash photos; it does not sell real products.
 
-> **Disclaimer:** This is an independent educational project created for learning purposes only. It is not affiliated with, endorsed by, or associated with Myntra. All brand references are used solely to describe the inspiration for this practice project.
+## Run it
 
-## ✨ Features
+Open `index.html` in a browser, or use VS Code Live Server. No dependencies or build tools are required.
 
-### 🏠 User Interface
-- Clean, modern fashion-shopping interface.
-- Sticky navigation bar for easy access to categories.
-- Category tabs for All, Men, Women, Kids, and Footwear.
-- Responsive product grid for desktop and mobile screens.
+## Features
 
-### 🔍 Product Search and Browsing
-- Live product search by name or matching text.
-- Browse products by category.
-- Product cards displaying images, product names, prices, MRP, and discount percentages.
-- Dynamic product rendering using JavaScript.
+- Responsive desktop and mobile storefront layout
+- Category navigation, live product search, and price/rating sorting
+- Wishlist and shopping bag saved in browser `localStorage`
+- Bag drawer with quantity, item removal, and total calculation
+- Accessible labels and lazy-loaded product photos
 
-### ❤️ Wishlist
-- Add or remove products from your wishlist.
-- Interactive heart button for wishlist management.
-- Live wishlist counter.
+## Customize
 
-### 🛒 Shopping Bag
-- Add products to your shopping bag.
-- Remove products from the bag.
-- View selected products in a side panel.
-- Automatically calculate the total price.
-- View the current bag item count.
+Edit the `products` array near the bottom of `index.html` to change the sample catalog. Each product has an id, brand, name, category, price, original price, rating, and an Unsplash photo id.
 
-### 📱 Responsive Design
-- Flexible layouts using CSS Grid and Flexbox.
-- Mobile-friendly product cards and navigation.
-- Responsive styling for different screen sizes.
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| HTML5 | Website structure and content |
-| CSS3 | Styling, layout, Grid, Flexbox, and responsive design |
-| Vanilla JavaScript | Search, category filtering, wishlist, bag, and dynamic rendering |
-
-**No frameworks, external JavaScript libraries, or build tools are required.**
-
-## 📂 Project Structure
-
-```text
-myntra-clone/
-├── index.html      # Main website with HTML, CSS, and JavaScript
-└── README.md       # Project documentation
-```
-
-The current version keeps the website's HTML, CSS, and JavaScript inside a single `index.html` file for simplicity.
-
-## 🚀 Getting Started
-
-Follow these steps to run the project locally.
-
-### Prerequisites
-
-- A modern web browser, such as Chrome, Firefox, or Edge.
-- A code editor such as Visual Studio Code (optional).
-- Git installed on your system (only if cloning the repository).
-
-### 1. Clone the Repository
-
-Replace `YOUR-USERNAME` with your GitHub username.
-
-```bash
-git clone https://github.com/YOUR-USERNAME/myntra-clone.git
-```
-
-### 2. Navigate to the Project Folder
-
-```bash
-cd myntra-clone
-```
-
-### 3. Run the Website
-
-Open `index.html` directly in your web browser.
-
-Alternatively, open the project in Visual Studio Code and use the **Live Server** extension.
-
-No dependency installation, compilation, or build process is needed.
-
-## 💡 How It Works
-
-The website uses a JavaScript-based product list and dynamically updates the interface based on user interactions.
-
-- **Product data:** Products are stored in a JavaScript array named `products`.
-- **Product rendering:** The `showProducts()` function filters and displays products based on the selected category and search query.
-- **Search:** JavaScript updates the visible products according to the search input.
-- **Wishlist:** An array of product IDs tracks which products have been added to the wishlist.
-- **Shopping bag:** A collection of product IDs tracks selected items and updates the displayed total.
-- **Dynamic interface:** The UI refreshes when products are searched, filtered, added, or removed.
-
-*Implementation details describe the intended structure of the current project; function and variable names should match the actual source code.*
-
-## 🖥️ Usage
-
-1. Open the website in your browser.
-2. Browse products using the category tabs.
-3. Search for products using the search bar.
-4. Click the heart icon to add or remove a product from your wishlist.
-5. Add products to your shopping bag.
-6. Open the bag panel to review selected products and their total price.
-7. Remove items when you no longer want them.
-
-## 🔮 Future Enhancements
-
-The following improvements could make the project more feature-rich:
-
-- [ ] Store wishlist and bag data using `localStorage`.
-- [ ] Add individual product detail pages.
-- [ ] Implement size and color selectors.
-- [ ] Add sorting by price, popularity, and discount.
-- [ ] Add filters for brand, size, color, and price range.
-- [ ] Create a login and signup interface.
-- [ ] Add a quantity selector and improved cart calculations.
-- [ ] Replace placeholder images with suitable fashion product images.
-- [ ] Add toast notifications and loading states.
-- [ ] Separate HTML, CSS, and JavaScript into dedicated files.
-- [ ] Deploy the website using GitHub Pages or another static hosting service.
-
-## 🔐 Current Limitations
-
-- This is a frontend-only project.
-- Product information is stored locally in JavaScript.
-- There is no backend, database, or user authentication.
-- The shopping bag and wishlist are not permanently saved unless persistence is implemented.
-- No real payments, orders, or checkout processing are supported.
-- Product images may use random placeholders from [Picsum Photos](https://picsum.photos).
-
-## 🎯 Learning Objectives
-
-This project helps practice:
-
-- Semantic HTML and page structure.
-- Responsive web design with CSS Grid and Flexbox.
-- JavaScript arrays, functions, and event handling.
-- DOM manipulation and dynamic rendering.
-- Search and category filtering.
-- Basic shopping cart and wishlist logic.
-- Git, GitHub, and project documentation.
-
-## 🤝 Contributing
-
-Contributions and suggestions are welcome!
-
-1. Fork the repository.
-2. Create a new branch for your changes.
-3. Implement and test your improvements.
-4. Commit your changes with a descriptive message.
-5. Open a pull request explaining your contribution.
-
-For small personal learning projects, you can also create issues to track bugs and planned enhancements.
-
-## 📄 License
-
-This project is intended for educational and personal learning purposes.
-
-If you plan to publish or distribute the project, consider adding an appropriate open-source license, such as the MIT License, after confirming that the code and included assets can be distributed under its terms.
-
-## 👨‍💻 Author
-
-**Your Name**
-
-- GitHub: [YOUR-USERNAME](https://github.com/YOUR-USERNAME)
-
-Replace the placeholder details with your own information.
-
----
-
-⭐ **If you find this project useful for learning frontend development, consider giving the repository a star!**
-
-*Built with ❤️ using HTML, CSS, and JavaScript.*
+This project is frontend-only: it has no account system, inventory service, checkout, or payment processing. Browser storage is local to the current device and browser.
