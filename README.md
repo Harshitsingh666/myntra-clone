@@ -1,23 +1,25 @@
-# Fashion Edit — Myntra-inspired storefront
+# Myntra Functional Clone
 
-A small educational fashion storefront built with plain HTML, CSS, and JavaScript. It recreates common online-shopping patterns such as category browsing, product search, sorting, a wishlist, and a shopping bag without a framework or build step.
-
-> This is an independent learning project. It is not affiliated with or endorsed by Myntra. The catalog uses sample product data and remote Unsplash photos; it does not sell real products.
-
-## Run it
-
-Open `index.html` in a browser, or use VS Code Live Server. No dependencies or build tools are required.
+A static shopping interface inspired by Myntra, built with HTML, CSS, and vanilla JavaScript.
 
 ## Features
 
-- Responsive desktop and mobile storefront layout
-- Category navigation, live product search, and price/rating sorting
-- Wishlist and shopping bag saved in browser `localStorage`
-- Bag drawer with quantity, item removal, and total calculation
-- Accessible labels and lazy-loaded product photos
+- Product catalog rendered from `data/items.js`
+- Add items to a shopping bag
+- Bag contents and item count saved in browser local storage
+- Bag page with order summary and item removal
 
-## Customize
+## Run locally
 
-Edit the `products` array near the bottom of `index.html` to change the sample catalog. Each product has an id, brand, name, category, price, original price, rating, and an Unsplash photo id.
+No build tools or dependencies are required. Clone or download this repository, then open `index.html` in a modern browser. The app uses local storage, so the bag is saved in that browser.
 
-This project is frontend-only: it has no account system, inventory service, checkout, or payment processing. Browser storage is local to the current device and browser.
+## Project structure
+
+```
+css/       Page styles
+data/      Product catalog
+images/    Product and logo assets
+pages/     Bag page
+scripts/   Catalog and bag behavior
+index.html Storefront entry point
+```
